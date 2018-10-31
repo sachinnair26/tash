@@ -1,4 +1,4 @@
-import { STRING_MANI, CLICK_DIV } from "./ActionCreators";
+import { TRY_AGAIN, CLICK_DIV } from "./ActionCreators";
 
 const initialState = {
   clickVal: []
@@ -10,6 +10,12 @@ export default function reducer1(state = initialState, action) {
         ...state,
         clickVal: action.payload
       };
+    case TRY_AGAIN:
+      return {
+        ...state,
+        clickVal: action.payload
+      };
+
     default:
       return state;
   }

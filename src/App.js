@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import stringAction from "./stringAction";
-import clickDivAction from "./clickDivAction";
+import { clickDivAction } from "./clickDivAction";
+import { tryAgainAction } from "./clickDivAction";
 import "./App.css";
 import { connect } from "react-redux";
 class App extends Component {
@@ -54,7 +55,11 @@ class App extends Component {
       })
     });
   }
-
+  ontryAgain() {
+    this.props.stringAction(this.state.sentence);
+    this.setState({ route: [] });
+    this.props.tryAgainAction();
+  }
   render() {
     return (
       <div className="App">
@@ -81,24 +86,42 @@ class App extends Component {
         {this.state.done ? (
           <div className="final">
             {this.state.showSuccess ? (
-              <div
-                style={{
-                  backgroundColor: "green",
-                  padding: "30px",
-                  borderRadius: "20px"
-                }}
-              >
-                Success
+              <div style={{ display: "flex", justifyContent: "space-around" }}>
+                <div
+                  style={{
+                    backgroundColor: "green",
+                    padding: "30px",
+                    borderRadius: "20px"
+                  }}
+                >
+                  Success
+                </div>
+                <div
+                  onClick={this.ontryAgain.bind(this)}
+                  style={{
+                    backgroundColor: "yellow",
+                    padding: "10px",
+                    borderRadius: "20px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer"
+                  }}
+                >
+                  Try Again
+                </div>
               </div>
             ) : (
               <div
+                onClick={this.ontryAgain.bind(this)}
                 style={{
                   backgroundColor: "red",
                   padding: "30px",
-                  borderRadius: "20px"
+                  borderRadius: "20px",
+                  cursor: "pointer"
                 }}
               >
-                Failure
+                try Again
               </div>
             )}
           </div>
@@ -107,15 +130,14 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = state =>
-  //console.log(state),
-  ({
-    value: state.value,
-    clickVal: state.clickVal
-  });
+const mapStateToProps = state => ({
+  value: state.value,
+  clickVal: state.clickVal
+});
 const mapActionsToProps = {
   stringAction: stringAction,
-  clickDivAction: clickDivAction
+  clickDivAction: clickDivAction,
+  tryAgainAction: tryAgainAction
 };
 export default connect(
   mapStateToProps,

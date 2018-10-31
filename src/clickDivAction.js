@@ -1,9 +1,9 @@
-import { CLICK_DIV } from "./ActionCreators";
+import { CLICK_DIV, TRY_AGAIN } from "./ActionCreators";
 const data = {
   result: [],
   success: false
 };
-export default function clickDivAction(p, sentence) {
+export function clickDivAction(p, sentence) {
   data.result.push(p);
 
   if (data.result.join(" ").length === sentence.length) {
@@ -16,6 +16,13 @@ export default function clickDivAction(p, sentence) {
 
   return {
     type: CLICK_DIV,
+    payload: data
+  };
+}
+export function tryAgainAction() {
+  data.result = [];
+  return {
+    type: TRY_AGAIN,
     payload: data
   };
 }
