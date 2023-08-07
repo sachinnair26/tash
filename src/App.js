@@ -18,6 +18,7 @@ class App extends Component {
     };
   }
   componentWillReceiveProps(props) {
+    console.log("Hello world")
     if (!props.clickVal.clickVal.result) {
     } else {
       this.setState({ result: props.clickVal.clickVal.result });
